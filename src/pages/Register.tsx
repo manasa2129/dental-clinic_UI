@@ -47,7 +47,7 @@ const Register: React.FC = () => {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/register', formData);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, formData);
       setMessage(response.data.message || 'Registration successful');
       setFormData({ name: '', email: '', password: '', location: '', role: 'customer' });
       navigate('/CustomerDashboard');
