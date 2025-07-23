@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const CustomNavbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -21,6 +22,8 @@ const CustomNavbar: React.FC = () => {
   return (
     <Navbar
       expand="lg"
+      expanded={isExpanded}
+      onToggle={() => setIsExpanded(prev => !prev)}
       fixed="top"
       className={`py-3 ${scrolled ? 'navbar-scrolled' : ''}`}
       bg="light"
@@ -28,23 +31,30 @@ const CustomNavbar: React.FC = () => {
     >
       <Container>
         {isHome ? (
-  <ScrollLink
-    to="home"
-    smooth={true}
-    duration={300}
-    offset={-50}
-    className="navbar-brand fw-bold text-primary fs-4"
-    style={{ cursor: 'pointer' }}
-  >
-    SmileCare
-  </ScrollLink>
-) : (
-  <Navbar.Brand as={Link} to="/" className="fw-bold text-primary fs-4">
-    SmileCare
-  </Navbar.Brand>
-)}
+          <ScrollLink
+            to="home"
+            smooth={true}
+            duration={300}
+            offset={-50}
+            className="navbar-brand fw-bold text-primary fs-4"
+            style={{ cursor: 'pointer' }}
+            onClick={() => setIsExpanded(false)}
+          >
+            SmileCare
+          </ScrollLink>
+        ) : (
+          <Navbar.Brand
+            as={Link}
+            to="/"
+            className="fw-bold text-primary fs-4"
+            onClick={() => setIsExpanded(false)}
+          >
+            SmileCare
+          </Navbar.Brand>
+        )}
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav className="ms-auto">
             {isHome ? (
@@ -56,7 +66,8 @@ const CustomNavbar: React.FC = () => {
                   duration={300}
                   offset={-50}
                   className="mx-2"
-                  style={{ cursor: 'pointer' }} 
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setIsExpanded(false)}
                 >
                   Home
                 </Nav.Link>
@@ -67,7 +78,8 @@ const CustomNavbar: React.FC = () => {
                   duration={300}
                   offset={-50}
                   className="mx-2"
-                  style={{ cursor: 'pointer' }} 
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setIsExpanded(false)}
                 >
                   Doctors
                 </Nav.Link>
@@ -78,7 +90,8 @@ const CustomNavbar: React.FC = () => {
                   duration={300}
                   offset={-50}
                   className="mx-2"
-                  style={{ cursor: 'pointer' }} 
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setIsExpanded(false)}
                 >
                   Testimonials
                 </Nav.Link>
@@ -89,21 +102,22 @@ const CustomNavbar: React.FC = () => {
                   duration={300}
                   offset={-50}
                   className="mx-2"
-                  style={{ cursor: 'pointer' }} 
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setIsExpanded(false)}
                 >
                   Contact
                 </Nav.Link>
               </>
             ) : (
-              <Nav.Link as={Link} to="/" className="mx-2">
+              <Nav.Link as={Link} to="/" className="mx-2" onClick={() => setIsExpanded(false)}>
                 Back to Home
               </Nav.Link>
             )}
 
-            <Nav.Link as={Link} to="/login" className="mx-2">
+            <Nav.Link as={Link} to="/login" className="mx-2" onClick={() => setIsExpanded(false)}>
               Login
             </Nav.Link>
-            <Nav.Link as={Link} to="/register" className="mx-2">
+            <Nav.Link as={Link} to="/register" className="mx-2" onClick={() => setIsExpanded(false)}>
               Register
             </Nav.Link>
           </Nav>
